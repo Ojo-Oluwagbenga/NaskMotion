@@ -7,10 +7,12 @@ import requests
 import base64
 import glob
 
-# from ..editsystem.c_interpolator import twinview
-# from ..editsystem.foldmaker import storyfold
-# from ..editsystem.interpolator import motionimagery
-# import cv2
+import cv2
+
+from ..editsystem.c_interpolator import twinview
+from ..editsystem.foldmaker import storyfold
+from ..editsystem.interpolator import motionimagery
+
 
 import time
 import os
@@ -48,7 +50,7 @@ class nasaapi:
             }   
             r = requests.get('https://images-api.nasa.gov/search', params)
             start =  int(response.GET.get('start', 0))    
-            resp = r.json()['collection']['items'][start:start+2]
+            resp = r.json()['collection']['items'][start:start+20]
 
             resp = {
                 'data':resp,
@@ -81,7 +83,7 @@ class sysapi:
             if len(imgarr) != 2:
                 callresponse = {
                     'state':False,
-                    'error': 'two(2) images parameters are expected',
+                    'error': 'Two(2) images parameters are expected',
                     'url':"error",
                 }
                 return HttpResponse(json.dumps(callresponse))
@@ -118,7 +120,7 @@ class sysapi:
                 logging.error(traceback.format_exc())
                 callresponse = {
                     'state':False,
-                    'error': 'Something broke',
+                    'error': 'We are working on succesfully implementing OpenCV on the live server. You may pull our open code from the github link provided in the footer',
                     'url':"null" 
                 }
 

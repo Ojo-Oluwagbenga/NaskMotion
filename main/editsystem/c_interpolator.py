@@ -24,6 +24,7 @@ def makeequal(imgs):
         maxw = w if (w > maxw) else maxw
 
     filled = []
+    fixedheight = -1
     for img in imgs:
         h,w = img.shape[:2]
         defh = maxh - h
@@ -33,13 +34,18 @@ def makeequal(imgs):
         if (defw//2 != 0):
             imfillside = createblank(defw//2, h)
             img = cv2.hconcat([imfillside, img, imfillside])
+
         if (defh//2 != 0):
             imfilltops = createblank(w + defw, defh//2)
             img = cv2.vconcat([imfilltops, img, imfilltops])
-            
+        
+        h,w = img.shape[:2]
+        img = img[0:maxh-2, 0:w]
+
         filled.append(img)
 
     return filled          
+
 
 def cv2readimgonline(link):
     response = requests.get(link)

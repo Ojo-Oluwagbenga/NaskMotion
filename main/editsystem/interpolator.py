@@ -129,8 +129,6 @@ def makeequal(imgs):
         if (defw//2 != 0):
             imfillside = createblank(defw//2, h)
             img = cv2.hconcat([imfillside, img, imfillside])
-            
-            
 
         if (defh//2 != 0):
             imfilltops = createblank(w + defw, defh//2)
@@ -180,7 +178,7 @@ def motionimagery(snaps, darkwidth):
 
         tarr = trunc_img_arr(img, viswidth, darkwidth, ind*viswidth)
 
-        if (minlen < len(tarr) or minlen == -1):
+        if (minlen > len(tarr) or minlen == -1):
             minlen = len(tarr) 
 
         truncpack.append(tarr)

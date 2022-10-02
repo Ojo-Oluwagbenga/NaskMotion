@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
+
+    <title>Naskmotion</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+    
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'template_data/homeasset/assets/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'template_data/homeasset/assets/css/font-awesome.css' %}">
+
+    <link rel="stylesheet" href="{% static 'template_data/homeasset/assets/css/templatemo-softy-pinko.css' %}">
+    
+    <!-- jQuery -->
+    <script src="{% static 'template_data/homeasset/assets/js/jquery-2.1.0.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+</head>
+    
+<body>
+    <style>
+        /* .grab {
+            overflow: scroll;
+        } */
+        /* .thumbnails-list{
+            cursor: pointer;
+        }
+
+        .grab:active {
+            background-color: green;
+            cursor: grabbing;
+            cursor: -moz-grabbing;
+            cursor: -webkit-grabbing;
+        } */
+        .c-vert{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0px auto;
+        }
+        .imagepack{
+            position: relative;
+            margin: 0px auto;
+            width: 80%;
+            height: 90vh;
+            background-color: grey;
+        }
+        .imagepack img{
+            width: 100%;
+            height: 100%;
+            margin: 0px auto;
+            object-fit: contain;
+        }
+        .imagepack #mover{
+            position: absolute;
+            left: 0px;
+        }
+    </style>
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <script>
+            $(document).scroll(function(e){
+                let st = $(this).scrollTop()
+                if (st > 130){
+                    $('.header-area.header-sticky').css({'background-color':'#ffffff91'})
+                }else{
+                    $('.header-area.header-sticky').css({'background-color':'unset'})
+                }
+            })
+        </script>
+        <div class="container" style="width: 100%; max-width:95%; height: 100%;">
+            <div class="row" style="height: 100%;">
+                <div class="col-12" style="height: 100%;">
+                    <nav class="main-nav" style="height: 100%;">
+                        <div class="logo c-vert">NaskMotion</div>
+                        <div class="navig">
+                            <div class="joinus c-vert">Join Us</div>
+                            <div class="Create c-vert">Create</div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area" id="welcome">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
+                        <h1>There is <strong style="color:rgb(190, 68, 88)">a space</strong ><br> for <strong style="color:rgb(190, 68, 88)"> everyone </strong> when it comes to creativity and science</h1>
+                        <p>NaskMotion is geared towards creating a space for everyone most especially young african kids that have no access to digital devices</p>
+                        <a href="#features" class="main-button-slider">Start creating</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+        <img src="{% static 'template_data/homeasset/assets/images/rocketback.png' %}" alt="">
+        <div class="back-overlay">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,96L80,106.7C160,117,320,139,480,170.7C640,203,800,245,960,240C1120,235,1280,181,1360,154.7L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+        </div>
+    </div>
+    <!-- ***** Welcome Area End ***** -->
+
+    <script>
+        // window.stop()
+    </script>
+    <!-- ***** Features Small Start ***** -->
+    <section class="section home-feature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <!-- ***** Features Small Item Start ***** -->
+                        <div id="motionimagery" class="artnavig col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i>
+                                        <!-- <img src="kiwi.svg" alt="Kiwi standing on oval"> -->
+                                        <img style="height: 40%" src="{% static 'svgs/motion.svg' %}" alt="">
+                                    </i>
+                                </div>
+                                <h5 class="features-title">Motion imagery</h5>
+                                <p>Create a motion imagery of pictures from space. Auto generate a slicing mask</p>
+                            </div>
+                        </div>
+                        <!-- ***** Features Small Item End ***** -->
+
+                        <!-- ***** Features Small Item Start ***** -->
+                        <div id="storyfolds" class="artnavig col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i>
+                                        <img src="{% static 'svgs/orig.png' %}" alt="">
+                                    </i>
+                                </div>
+                                <h5 class="features-title">Story within folds</h5>
+                                <p>Create a space story at every level of making an Origami</p>
+                            </div>
+                        </div>
+                        <!-- ***** Features Small Item End ***** -->
+
+                        <!-- ***** Features Small Item Start ***** -->
+                        <div id="twinview"  class="artnavig col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i>
+                                        <img src="{% static 'svgs/cams.svg' %}" alt="">
+                                    </i>
+                                </div>
+                                <h5 class="features-title">Twin view</h5>
+                                <p>Autogenerate twin views of mutually exclusive or "pre- and post-" events occuring in space</p>
+                            </div>
+                        </div>
+                        <!-- ***** Features Small Item End ***** -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Small End ***** -->
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section padding-top-70 padding-bottom-0 features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12 align-self-center" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src="{% static 'svgs/contrib.svg' %}" class="rounded img-fluid d-block mx-auto" alt="App">
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-top-fix">
+                    <div class="left-heading">
+                        <h2 class="section-title">Be an art technician</h2>
+                    </div>
+                    <div class="left-text">
+                        <p>Help boost a child cognitive ability by creating a masking vector for the "Story in folds" origami imagery </p>
+                    </div>
+                    <div class="contribute">Contribute</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hr"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+
+    <section class="section padding-top-70 padding-bottom-0 features" >
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-top-fix">
+                    <div class="left-heading">
+                        <h2 class="section-title">Sponsor the evangelism</h2>
+                    </div>
+                    <div class="left-text">
+                        <p>Help us reach out more kids and youth with the imagery materials by giving to the course</p>
+                    </div>
+                    <div class="contribute">Contribute</div>
+                </div>  
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5 col-md-12 col-sm-12 align-self-center" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src="{% static 'svgs/contribmoney.svg' %}" class="rounded img-fluid d-block mx-auto" alt="App">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hr"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ***** Blog Start ***** -->
+    <section class="section" id="blog">
+        <div class="container">
+            <!-- ***** Section Title Start ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 style="font-weight:bold" class="section-title">Explore the space images data</h2>
+                    </div>
+                </div>
+                <div class="searchtab">
+                    <input type="text" class="search" placeholder="Enter key to search">
+                    <div class="startsearch c-vert">Search</div>
+                </div>
+            </div>
+            <!-- ***** Section Title End ***** -->
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="blog-post-thumb">
+                        <div class="img">
+                            <img src="{% static 'template_data/homeasset/assets/images/blog-item-01.png' %}" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h3>
+                                <a href="#">Vivamus ac vehicula dui</a>
+                            </h3>
+                            <div class="text">
+                               Cras aliquet ligula dui, vitae fermentum velit tincidunt id. Praesent eu finibus nunc. Nulla in sagittis eros. Aliquam egestas augue.
+                            </div>
+                            <a href="#" class="main-button">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="blog-post-thumb">
+                        <div class="img">
+                            <img src="{% static 'template_data/homeasset/assets/images/blog-item-02.png' %}" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h3>
+                                <a href="#">Phasellus convallis augue</a>
+                            </h3>
+                            <div class="text">
+                                Aliquam commodo ornare nisl, et scelerisque nisl dignissim ac. Vestibulum finibus urna ut velit venenatis, vel ultrices sapien mattis.
+                            </div>
+                            <a href="#" class="main-button">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="blog-post-thumb">
+                        <div class="img">
+                            <img src="{% static 'template_data/homeasset/assets/images/blog-item-03.png' %}" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h3>
+                                <a href="#">Nam gravida purus non</a>
+                            </h3>
+                            <div class="text">
+                                Maecenas eu erat vitae dui convallis consequat vel gravida nulla. Vestibulum finibus euismod odio, ut tempus enim varius eu.
+                            </div>
+                            <a href="#" class="main-button">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="blog-post-thumb">
+                        <div class="img">
+                            <img src="{% static 'template_data/homeasset/assets/images/blog-item-03.png' %}" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h3>
+                                <a href="#">Nam gravida purus non</a>
+                            </h3>
+                            <div class="text">
+                                Maecenas eu erat vitae dui convallis consequat vel gravida nulla. Vestibulum finibus euismod odio, ut tempus enim varius eu.
+                            </div>
+                            <a href="#" class="main-button">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="blog-post-thumb">
+                        <div class="img">
+                            <img src="{% static 'template_data/homeasset/assets/images/blog-item-03.png' %}" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h3>
+                                <a href="#">Nam gravida purus non</a>
+                            </h3>
+                            <div class="text">
+                                Maecenas eu erat vitae dui convallis consequat vel gravida nulla. Vestibulum finibus euismod odio, ut tempus enim varius eu.
+                            </div>
+                            <a href="#" class="main-button">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Blog End ***** -->
+
+    <!-- ***** Contact Us Start ***** -->
+    <section class="section colored" id="contact-us">
+        <div class="container">
+            <!-- ***** Section Title Start ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 style="font-weight:bold" class="section-title">Reach out to NaskMotion</h2>
+                    </div>
+                </div>
+                <div class="offset-lg-3 col-lg-6">
+                    <div class="center-text">
+                        <p>Have a recommendation or needing to create an educational content? Reach out to us</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ***** Section Title End ***** -->
+
+            <div class="row">
+                <!-- ***** Contact Text Start ***** -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <h5 class="margin-bottom-30">Keep in touch</h5>
+                    <div class="contact-text">
+                        <p>2nd Avenue, Damico estate, Ile-ife, Nigeria
+                        <br>+234 813 653 2228</p>                    
+                    </div>
+                </div>
+                <!-- ***** Contact Text End ***** -->
+
+                <!-- ***** Contact Form Start ***** -->
+                <div class="col-lg-8 col-md-6 col-sm-12">
+                    <div class="contact-form">
+                        <form id="contact" action="" method="get">
+                          <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                              <fieldset>
+                                <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                              <fieldset>
+                                <input name="email" type="email" class="form-control" id="email" placeholder="E-Mail Address" required="">
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <button style="background-color:rgb(190, 68, 88)" type="submit" id="form-submit" class="main-button">Send Message</button>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- ***** Contact Form End ***** -->
+            </div>
+        </div>
+    </section>
+    <!-- ***** Contact Us End ***** -->
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <ul class="social">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright">Copyright &copy; 2022 NaskMotion</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- Bootstrap -->
+    <script src="{% static 'template_data/homeasset/assets/js/popper.js' %}"></script>
+    <script src="{% static 'template_data/homeasset/assets/js/bootstrap.min.js' %}"></script>
+
+    <!-- Plugins -->
+    <script src="{% static 'template_data/homeasset/assets/js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'template_data/homeasset/assets/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'template_data/homeasset/assets/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'template_data/homeasset/assets/js/imgfix.min.js' %}"></script> 
+    
+    <!-- Global Init -->
+    <script src="{% static 'template_data/homeasset/assets/js/custom.js' %}"></script>
+
+  </body>
+</html>

@@ -1,0 +1,1 @@
+web gunicorn imagefilmer.wsgi:application --log-file -

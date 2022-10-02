@@ -1,5 +1,4 @@
 import cv2
-import cvzone
 import os
 import numpy as np
 from PIL import Image
@@ -7,8 +6,6 @@ import requests
 from io import BytesIO
 # from .c_interpolator import makeequal
 
-
-from cvzone.SelfiSegmentationModule import SelfiSegmentation
 
 def createblank(w, h):
     img = np.zeros((int(h), int(w), 4), np.uint8)

@@ -8,10 +8,10 @@ import requests
 import json
 from django.shortcuts import redirect
 
-from .editsystem.interpolator import *
-from .editsystem.c_interpolator import *
+# from .editsystem.interpolator import *
+# from .editsystem.c_interpolator import *
 
-from .editsystem.foldmaker import *
+# from .editsystem.foldmaker import *
 
     
 # Create your views here.

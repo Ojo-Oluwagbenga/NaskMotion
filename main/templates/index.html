@@ -45,6 +45,9 @@
             cursor: -moz-grabbing;
             cursor: -webkit-grabbing;
         } */
+        html {
+            scroll-behavior: smooth;
+        }
         .c-vert{
             display: flex;
             justify-content: center;
@@ -108,7 +111,19 @@
                 <div class="row">
                     <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
                         <h1>There is <strong style="color:rgb(190, 68, 88)">a space</strong ><br> for <strong style="color:rgb(190, 68, 88)"> everyone </strong> when it comes to creativity and science</h1>
-                        <p>NaskMotion is geared towards creating a space for everyone most especially young african kids that have no access to digital devices</p>
+                        <p>
+                            NaskMotion is geared towards creating a space for everyone most especially young african kids that have no access to digital devices
+                            <br> <span style="color:blue; font-weight:bold; cursor:pointer" id="tocode">See below for the link to our codebase</span>
+                        </p>
+                        <script>
+                            $('#welcome #tocode').click(function(){
+                                let btop = $('footer').offset().top
+                                console.log(btop)
+                                setTimeout(() => {
+                                    $(document).scrollTop(btop)
+                                }, 100);
+                            })
+                        </script>
                         <a href="/twinview" class="main-button-slider">Start creating</a>
                     </div>
                 </div>
@@ -486,7 +501,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <ul class="social">
-                        <li><a href="#"><i class="fa fa-github"></i></a></li>
+                        <li><a href="https://github.com/Ojo-Oluwagbenga/NaskMotion"><i class="fa fa-github"></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -135,7 +135,7 @@ def makeequal(imgs):
             img = cv2.vconcat([imfilltops, img, imfilltops])
         
         h,w = img.shape[:2]
-        img = img[0:maxh-2, 0:w]
+        img = img[0:maxh-1, 0:w]
 
         filled.append(img)
 

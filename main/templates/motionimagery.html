@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content%}
+    <div id="twinview">
+
+        <script>
+            function listenUpload(inputSelct, func) {
+                $(inputSelct).change(function(){
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            func(e.target.result);
+                        }
+
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });                
+            }
+        </script>
+
+
+        <div class="head">Motion Imagery- Create static motion</div>
+        <div class="interpolabout" style="padding:10px; margin: 20px 0 20px 20px; border-left: 3px solid red; background-color: whitesmoke">
+            This interpolation generates an interpolated image and a mask. When the mask is moved over the image, multiple creator images will be seen transitioning like a short video. 
+            <br>When both is printed <strong>in same scale and size,</strong> the mask white on paper must be trimmed to make it backgroundless again
+            <br><br><strong>Creators text formatting coming soon</strong>
+        </div>
+        <div class="editarea">
+            <div class="blockname">
+                Add at LEAST two(2) images to interpolate
+            </div>
+            <div class="imagesuper">
+                <div class="imageholdadd c-vert">
+                    <div class="addicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="geninterpol" class="interpolate c-vert">Generate Interpolate</div>
+
+        <div class="sepline"></div>
+        <div class="displayarea" id="toparear" >
+            <div class="interpolhold" id="interpolholdid">
+                <div class="head">Interpolated Image</div>
+                <img  style="opacity:0"  src="{% static 'templatedata/homeasset/assets/images/blog-item-01.png' %}" alt="">
+                <div id="dl-interpol" class="interpolate c-vert">Download Image</div>
+            </div>
+            <div>
+                <div id="maskhold" class="interpolhold">
+                    <div class="head">Motion mask</div>
+                    <img style="opacity:0; width: 100%; object-fit: contain;" src="{% static 'templatedata/homeasset/assets/images/blog-item-01.png' %}" alt="">
+                    <div id="d_mask" class="interpolate c-vert">Download Mask</div>
+                </div>
+                <div class="interpolhold">
+                    <div class="head">Interpolated Image Set</div>
+                    <div id="d_pdf" class="interpolate c-vert">Download all</div>
+                </div>
+            </div>            
+        </div>
+        
+
+    </div>
+
+    <script>
+        
+        let imcount = [];
+        $(document).ready(function(){
+            function download(source){
+                const fileName = source.split('/').pop();
+                var el = document.createElement("a");
+                el.setAttribute("href", source);
+                // el.setAttribute("href", 'https://facebook.com');
+                el.setAttribute("download", fileName);
+                document.body.appendChild(el);
+                el.click();
+                el.remove();
+            }
+
+            function download_pdf(id){
+                const el = document.getElementById(id);
+                html2pdf().from(el).save()
+            }
+
+            $('.imagesuper .imageholdadd').click(function(){
+                let btop = $('#blog').offset().top
+                console.log(btop)
+                setTimeout(() => {
+                    $(document).scrollTop(btop)
+                }, 100);
+            })
+
+            $("#geninterpol").click(function(){
+                ttout = true
+                simtext("#geninterpol", 'Generate Interpolate', 'Interpolating.')
+
+                axios({
+                    method: 'POST',
+                    url: '../api/sysapi/motion_interpolate',
+                    headers: {
+                        "X-CSRFToken" : $("input[name='csrfmiddlewaretoken']").val(),
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                    },
+                    data:{
+                        payload:JSON.stringify(selstate)
+                    }
+                }).then(response => {
+                    data = response.data
+                    ttout = false
+                    clearTimeout(ttout);  
+                    if (data.state){
+                        link = 'static/interpolimages/'+data['imgname'];
+                        masklink = 'static/interpolimages/'+data['maskname'];
+                        imcount = [link, masklink]
+                        elimg = '<img src="'+link+'">'
+                        elmask = '<img src="'+masklink+'">'
+
+                        $("#interpolholdid .head + img").remove();
+                        $("#maskhold .head + img").remove();
+
+                        $("#interpolholdid .head").after(elimg)
+                        $("#maskhold .head").after(elmask)
+
+                        // Removing the existing click function from the download buttons
+                        $(".interpolhold #dl-interpol").unbind('click');
+                        $("#maskhold #d_mask").unbind('click');
+
+
+                        $(".interpolhold #dl-interpol").click(function(){
+                            download(link)
+                        })
+                        $("#maskhold #d_mask").click(function(){
+                            download(masklink)
+                        })
+                    }else{
+                        alert(data['error'])
+
+                    }                    
+                }).catch(error => console.error(error))
+            })
+           
+            $('#d_pdf').click(function(){
+                for (let i = 0; i < imcount.length; i++) {
+                    console.log('hello');
+                    const im = imcount[i];
+                    download(im)
+                    
+                }
+                // download_pdf('fullimagesdata')
+            })
+            
+        })
+    
+    </script>
+
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+        .sepline{
+            height:1px; 
+            width: 60%; 
+            margin: 60px auto;
+            background-color: rgb(180, 179, 179);
+            border-radius: 50%;
+        }
+        .displayarea{
+            margin: 30px auto;
+            max-width: 700px;
+
+        }
+        .displayarea .interpolhold{
+            width: 100%;
+            background-color: whitesmoke;
+            border-radius: 10px;
+            margin: 10px 0px;
+            padding: 20px;
+        }
+        .interpolhold .head{
+            padding: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .interpolhold img{
+            width: 100%;
+        }
+        .interpolhold .interpolate{
+            margin-top: 35px ;
+        }
+
+        @media (min-width: 750px) {
+            .displayarea{
+                margin: 30px auto;
+                max-width: unset;
+                display: flex;
+            }
+            .displayarea > :nth-child(1){
+                width: 70%;
+                margin: 0px 10px;
+            }
+            .displayarea > div:nth-child(2){
+                width: 30%;
+            }
+            .displayarea > div:nth-child(2) .interpolhold{
+                height: max-content;
+                margin: 0px 10px;
+            }
+            .displayarea > div:nth-child(2) .interpolhold:nth-child(1){
+                margin-bottom: 10px;
+            }
+            .displayarea > :nth-child(2) .interpolate{
+                width: 90%;
+            }
+        }
+
+        
+    </style>
+    
+    <style>
+        #twinview{
+            padding: 10px;
+            width: 95%;
+            margin: 0px auto;
+        }
+        #twinview > .head{    
+            padding: 10px;
+            font-size: 24px;
+        }    
+        .editarea{
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgb(231, 231, 231)
+        }
+        .editarea .blockname{
+            padding: 20px 0;
+        }
+        .editarea .imagesuper{
+            display: flex;  
+            flex-wrap: wrap;
+            /* overflow-x: scroll; */
+        }  
+        
+        .imagesuper .imagehold{
+            height: 150px;
+            padding: 10px;
+            background-color: rgb(219, 219, 219);
+            position: relative;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .float-control{
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            right: 15px;
+            top: 15px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.397);
+            transition: all 0.3s;
+        }
+        .float-control:hover{
+            background-color: rgba(228, 15, 15, 0.829);
+        }
+        .float-control.image-item:hover{
+            background-color:rgb(75, 25, 5);
+        }
+        .float-control svg{
+            height: 50%;
+            margin: 0px auto;
+        }
+        .imagesuper .imagehold img{
+            height: 100%;
+            margin: 0px auto;
+        }
+        .imageholdadd{
+            position: relative;
+            min-width: 150px;
+            height: 150px;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgb(202, 202, 202);
+            transition: 0.3s all;
+        }
+        .imageholdadd:hover{
+            background-color: rgb(112, 112, 112);
+        }
+        .imageholdadd .addicon{
+            height: 30px;
+            text-align: center;
+        }
+        .imageholdadd .addicon svg{
+            height: 100%;
+            fill: rgb(156, 156, 156);
+        }
+        .imageholdadd input{
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+        }
+
+        .interpolate{
+            padding: 10px;
+            width: 40%;
+            min-width: 40px;
+            text-align: center;
+            background-color: rgb(100, 21, 21);
+            margin: 10px 0;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all;
+        }
+        .interpolate:hover{
+            background-color: rgb(66, 15, 15);
+        }
+    </style>
+{% endblock %}

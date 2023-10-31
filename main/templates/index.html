@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
+
+    <title>NaskMotion</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="static/templatedata/homeasset/assets/images/rocketback.png"/>
+
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+    
+    
+    <script src="{% static 'templatedata/homeasset/assets/js/jquery-2.1.0.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'templatedata/homeasset/assets/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'templatedata/homeasset/assets/css/font-awesome.css' %}">
+
+    <link rel="stylesheet" href="{% static 'templatedata/homeasset/assets/css/templatemo-softy-pinko.css' %}">
+    
+    <!-- jQuery -->
+    <script src="{% static 'templatedata/homeasset/assets/js/jquery-2.1.0.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+</head>
+    
+<body>
+    <style>
+        /* .grab {
+            overflow: scroll;
+        } */
+        /* .thumbnails-list{
+            cursor: pointer;
+        }
+
+        .grab:active {
+            background-color: green;
+            cursor: grabbing;
+            cursor: -moz-grabbing;
+            cursor: -webkit-grabbing;
+        } */
+        html {
+            scroll-behavior: smooth;
+        }
+        .c-vert{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0px auto;
+        }
+        .imagepack{
+            position: relative;
+            margin: 0px auto;
+            width: 80%;
+            height: 90vh;
+            background-color: grey;
+        }
+        .imagepack img{
+            width: 100%;
+            height: 100%;
+            margin: 0px auto;
+            object-fit: contain;
+        }
+        .imagepack #mover{
+            position: absolute;
+            left: 0px;
+        }
+    </style>
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <script>
+            $(document).scroll(function(e){
+                let st = $(this).scrollTop()
+                if (st > 130){
+                    $('.header-area.header-sticky').css({'background-color':'#ffffff91'})
+                }else{
+                    $('.header-area.header-sticky').css({'background-color':'unset'})
+                }
+            })
+        </script>
+        <div class="container" style="width: 100%; max-width:95%; height: 100%;">
+            <div class="row" style="height: 100%;">
+                <div class="col-12" style="height: 100%;">
+                    <nav class="main-nav" style="height: 100%;">
+                        <div class="logo c-vert">NaskMotion</div>
+                        <div class="navig">
+                            <div class="joinus c-vert">Join Us</div>
+                            <div class="Create c-vert">Create</div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area" id="welcome">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
+                        <h1>There is <strong style="color:rgb(190, 68, 88)">a space</strong ><br> for <strong style="color:rgb(190, 68, 88)"> everyone </strong> when it comes to creativity and science</h1>
+                        <p>
+                            NaskMotion is geared towards creating a space for everyone most especially young african kids that have no access to digital devices
+                            <br> <span style="color:blue; font-weight:bold; cursor:pointer" id="tocode">See below for the link to our codebase</span>
+                        </p>
+                        <script>
+                            $('#welcome #tocode').click(function(){
+                                let btop = $('footer').offset().top
+                                console.log(btop)
+                                setTimeout(() => {
+                                    $(document).scrollTop(btop)
+                                }, 100);
+                            })
+                        </script>
+                        <a href="/twinview" class="main-button-slider">Start creating</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+        <img src="{% static 'templatedata/homeasset/assets/images/rocketback.png' %}" alt="">
+        <div class="back-overlay">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,96L80,106.7C160,117,320,139,480,170.7C640,203,800,245,960,240C1120,235,1280,181,1360,154.7L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+        </div>
+    </div>
+    <!-- ***** Welcome Area End ***** -->
+
+    <script>
+        // window.stop()
+    </script>
+    <!-- ***** Features Small Start ***** -->
+    <section class="section home-feature">
+        <div class="container" style="margin-top: 46px;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <!-- ***** Features Small Item Start ***** -->
+                        <div id="motionimagery" class="artnavig col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i>
+                                        <!-- <img src="kiwi.svg" alt="Kiwi standing on oval"> -->
+                                        <img style="height: 40%" src="{% static 'svgs/motion.svg' %}" alt="">
+                                    </i>
+                                </div>
+                                <h5 class="features-title">Motion imagery</h5>
+                                <p>Create a motion imagery of pictures from space. Auto generate a slicing mask</p>
+                            </div>
+                        </div>
+                        <!-- ***** Features Small Item End ***** -->
+
+                        <!-- ***** Features Small Item Start ***** -->
+                        <div id="storyfolds" class="artnavig col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i>
+                                        <img src="{% static 'svgs/orig.png' %}" alt="">
+                                    </i>
+                                </div>
+                                <h5 class="features-title">Story within folds</h5>
+                                <p>Create a space story at every level of making an Origami</p>
+                            </div>
+                        </div>
+                        <!-- ***** Features Small Item End ***** -->
+
+                        <!-- ***** Features Small Item Start ***** -->
+                        <div id="twinview"  class="artnavig col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i>
+                                        <img src="{% static 'svgs/cams.svg' %}" alt="">
+                                    </i>
+                                </div>
+                                <h5 class="features-title">Twin view</h5>
+                                <p>Autogenerate twin views of mutually exclusive or "pre- and post-" events occuring in space</p>
+                            </div>
+                        </div>
+                        <!-- ***** Features Small Item End ***** -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Small End ***** -->
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section padding-top-70 padding-bottom-0 features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12 align-self-center" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src="{% static 'svgs/contrib.svg' %}" class="rounded img-fluid d-block mx-auto" alt="App">
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-top-fix">
+                    <div class="left-heading">
+                        <h2 class="section-title">Be an art technician</h2>
+                    </div>
+                    <div class="left-text">
+                        <p>Help boost a child cognitive ability by creating a masking vector for the "Story in folds" origami imagery </p>
+                    </div>
+                    <div class="contribute">Contribute</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hr"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+
+    <section class="section padding-top-70 padding-bottom-0 features" >
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-top-fix">
+                    <div class="left-heading">
+                        <h2 class="section-title">Sponsor the evangelism</h2>
+                    </div>
+                    <div class="left-text">
+                        <p>Help us reach out more kids and youth with the imagery materials by giving to the course</p>
+                    </div>
+                    <div class="contribute">Contribute</div>
+                </div>  
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5 col-md-12 col-sm-12 align-self-center" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src="{% static 'svgs/contribmoney.svg' %}" class="rounded img-fluid d-block mx-auto" alt="App">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hr"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ***** Blog Start ***** -->
+    <section class="section" id="blog">
+        <div class="container">
+            <!-- ***** Section Title Start ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 style="font-weight:bold" class="section-title">Explore the space images data</h2>
+                    </div>
+                </div>
+                <div class="searchtab">
+                    <input id="searchcont" type="text" class="search" placeholder="Enter key to search">
+                    <div id="searchinit" class="startsearch c-vert" v-on:click="initsearch()">Search</div>
+                </div>
+            </div>
+            <!-- ***** Section Title End ***** -->
+
+            <div class="row" >
+                
+                <div class="col-lg-4 col-md-6 col-sm-12" v-for="entry in data">
+                    <div class="blog-post-thumb"  v-on:click="toggleselect(entry)" :id="entry['data'][0]['nasa_id']">
+                        <div class="img">
+                            <img :src="entry['links'][0]['href']" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h3>
+                                <a href="#">[[ entry['data'][0]['title'] ]]</a>
+                            </h3>
+                            <div class="text">
+                                [[ entry['data'][0]['description'] ]]
+                            </div>
+                            <a class="main-button" v-on:click="readmore(entry['data'][0]['nasa_id'])">Read More</a>
+                        </div>
+                        
+                        <div v-if="vselstate.hasOwnProperty(entry['data'][0]['nasa_id'])"  style="background-color:rgb(19, 62, 110); opacity: 1;" class="float-control image-item c-vert">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ***** Blog End ***** -->
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <!-- On prod -->
+    <!-- <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script> -->
+
+    <script>
+
+        class Apimanager{
+            getRand(start, func){
+                // Fetches from apod
+                let url = '../api/nasaapi/getrand?start=' + start
+                console.log(start);
+                axios({
+                    method: 'GET',
+                    url: url,
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                    },
+                    // timeout: 25000,
+                }).then(response => {
+                    func(response.data);
+                }).catch(error => console.error(error))
+            }
+            
+            getSearch(search, start, func){
+                // Fetches from nasaimg
+                // cut has will be taken from start to start+10
+                axios({
+                    method: 'GET',
+                    url: '../api/nasaapi/getsearch?query='+search+'&start='+start,
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                    },
+                    // timeout: 25000,
+                }).then(response => {
+                    func(response.data.data);
+                }).catch(error => console.error(error))
+            }
+        
+            convert_apod_to_nasimg(apod){
+                return apod
+                let obj = []
+                for (let i = 0; i < apod.length; i++) {
+                    const el = array[i];
+                    obj[i] = {
+                        data:[{
+                            center:el['copyright'],
+                            date_created:el['date'],
+                            description:el['explanation'],
+                            media_type:el['media_type'],
+                            nasa_id:0,
+                            title:el['title'],
+                            secondary_creator:el['copyright'],
+
+                        }],
+                        href:ss,
+                        links:[{
+                            href:el['hdurl'],
+                            rel:'preview',
+                            render:el['media_type']
+                        }]
+                    }
+                    return obj;
+                    
+                }
+            }
+        }
+        
+        let selstate = {}
+
+        let ttout = true
+
+        function simtext(el, sing, cont){
+            obj = $(el)
+            obj.text(cont);
+            setTimeout(() => {
+                obj.text(cont+ '.');
+            }, 500);
+            setTimeout(() => {
+                obj.text(cont+ '..');
+            }, 1000);
+            setTimeout(() => {
+                obj.text(cont+ '...');
+                if (ttout){
+                    simtext(el, sing, cont)
+                }else{
+                    obj.text(sing);
+                }
+            }, 1500);
+        }
+
+        const dataloader = Vue.createApp({
+            delimiters: ["[[", "]]"],
+            mounted(){
+                this.initiate()
+            },
+            data(){
+                return {
+                    data:{},
+                    vselstate:{},
+                }
+            },
+
+            methods:{
+                initiate(){
+                    new Apimanager().getSearch('Jovian', 35, (response)=>{
+                        this.data = response;
+                        passeddata = {...this.data }
+                    })
+                },
+                readmore(id){
+                    alert('Site under development, stick around!')
+                },
+                initsearch(){
+                    ttout = true
+                    simtext("#searchinit", 'Search', 'Searching')
+                    it = $('#searchcont').val();
+                    new Apimanager().getSearch(it, 30, (response)=>{
+                        this.data = response;
+                        if (response.length == 0){
+                            alert('Search not found')
+                        }
+                        ttout = false
+                        clearTimeout(ttout);                        
+                       
+                    })
+                }
+                
+            }
+        
+        })
+        dataloader.mount('#blog');
+        
+        
+    </script>
+
+    <!-- ***** Contact Us Start ***** -->
+    <section class="section colored" id="contact-us">
+        <div class="container">
+            <!-- ***** Section Title Start ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 style="font-weight:bold" class="section-title">Reach out to NaskMotion</h2>
+                    </div>
+                </div>
+                <div class="offset-lg-3 col-lg-6">
+                    <div class="center-text">
+                        <p>Have a recommendation or needing to create an educational content? Reach out to us</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ***** Section Title End ***** -->
+
+            <div class="row">
+                <!-- ***** Contact Text Start ***** -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <h5 class="margin-bottom-30">Keep in touch</h5>
+                    <div class="contact-text">
+                        <p>2nd Avenue, Damico estate, Ile-ife, Nigeria
+                        <br>+234 813 653 2228</p>                    
+                    </div>
+                </div>
+                <!-- ***** Contact Text End ***** -->
+
+                <!-- ***** Contact Form Start ***** -->
+                <div class="col-lg-8 col-md-6 col-sm-12">
+                    <div class="contact-form">
+                        <form id="contact" action="" method="get">
+                          <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                              <fieldset>
+                                <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                              <fieldset>
+                                <input name="email" type="email" class="form-control" id="email" placeholder="E-Mail Address" required="">
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <button style="background-color:rgb(190, 68, 88)" type="submit" id="form-submit" class="main-button">Send Message</button>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- ***** Contact Form End ***** -->
+            </div>
+        </div>
+    </section>
+    <!-- ***** Contact Us End ***** -->
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <ul class="social">
+                        <li><a href="https://github.com/Ojo-Oluwagbenga/NaskMotion/tree/master"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright">Copyright &copy; 2022 NaskMotion</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- Bootstrap -->
+    <script src="{% static 'templatedata/homeasset/assets/js/popper.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/bootstrap.min.js' %}"></script>
+
+    <!-- Plugins -->
+    <script src="{% static 'templatedata/homeasset/assets/js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/imgfix.min.js' %}"></script> 
+    
+    <!-- Global Init -->
+    <script src="{% static 'templatedata/homeasset/assets/js/custom.js' %}"></script>
+
+  </body>
+</html>

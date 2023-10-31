@@ -1,0 +1,504 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content%}
+    <div id="twinview">
+
+        <script>
+            function listenUpload(inputSelct, func) {
+                $(inputSelct).change(function(){
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            func(e.target.result);
+                        }
+
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+            }
+        </script>
+
+
+        <div class="head">Story Folds- Create a story in all folds</div>
+        <div class="interpolabout" style="padding:10px; margin: 20px 0 20px 20px; border-left: 3px solid red; background-color: whitesmoke">
+            Story in folds helps creators to put their story in a chronological order within the making of an origami.
+            <br>Every fold tells the creator's story, and at the end of the story, a full origami would have been folded
+            <br><br><strong>Creators text formatting coming soon</strong>
+        </div>
+        <!-- <div class="editarea">
+            <div class="blockname">
+                The current mask model requires you to upload exactly five(5) images
+            </div>
+            <div class="imagesuper">
+                <div class="imageholdadd c-vert">
+                    <div class="addicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="editarea">
+            <h3 class="ed-name" style="font-size: 14px;">
+                The current mask model requires you to upload exactly five(5) images
+            </h3>
+            <div class="imagesuper">
+                <div class="imageholdadd c-vert">
+                    <input id="selector" type="file" accept="image/*">
+                    <div class="addicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <img id="mincanvahold" src="img_the_scream.jpg" alt="The Scream">
+                <canvas id="mincanva" id="myCanvas" style="border:1px solid #d3d3d3;">
+            </div>
+            <script>
+                selstate = {}
+                function base64Resize(sourceBase64, scale , callBack) {
+
+                    const _scale = scale;
+                    var img = document.createElement('img');
+                    img.setAttribute("src", sourceBase64);
+
+                    img.onload = () => {
+                        var canvas = document.createElement('canvas');
+                        canvas.width = img.width * _scale;
+                        canvas.height = img.height * _scale;
+
+                        var ctx = canvas.getContext("2d");
+                        var cw = canvas.width;
+                        var ch = canvas.height;
+                        var maxW = img.width * _scale;
+                        var maxH = img.height * _scale;
+
+                        var iw = img.width;
+                        var ih = img.height;
+                        var scl = Math.min((maxW / iw), (maxH / ih));
+                        var iwScaled = iw * scl;
+                        var ihScaled = ih * scl;
+                        canvas.width = iwScaled;
+                        canvas.height = ihScaled;
+                        ctx.drawImage(img, 0, 0, iwScaled, ihScaled);
+                        const newBase64 = canvas.toDataURL("image/jpeg", scl);
+
+                        callBack(newBase64);
+                    }
+                }
+
+                function listenUpload(inputSelct, func) {
+                    $(inputSelct).change(function(){
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.readAsDataURL(this.files[0]);
+
+                            let imgobj = this.files[0];
+
+                            reader.onload = function (e) {
+                                // $(inputSelct).val("");
+                                // func(e.target.result, imgobj);
+                                base64Resize(e.target.result, 0.99, function(result){
+                                    $(inputSelct).val("");
+                                    func(result, imgobj);
+                                })
+                            }
+
+                        }
+                    });
+                }
+
+                function editselect(imgdata){
+                    // Remove dot because the id is used as id in html so its not intepreted as class cat
+                    let id =  Object.keys(selstate).length + "_" + imgdata['id'].replace(".",""); //uses the name in this case;
+
+
+                    if (selstate.hasOwnProperty(id)){
+                        id = Object.keys(selstate).length + "_" + id;
+                    }
+                    selstate[id] = imgdata['img'];
+                    let count = $('.imagesuper').children().length - 1;
+                    let el = '<div class="imagehold" id="'+ id +'">'+
+                        '<div class="float-control c-vert"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>'+
+                        '<img src="'+imgdata['img']+'" alt="">'+
+                    '</div>';
+                    if (count == 0){
+                        $('.imagesuper').prepend(el);
+                    }else{
+                        $('.imagesuper .imagehold:nth-child('+count+')').after(el);
+                    }
+                    $(".imagehold .float-control").click(function(){
+                        let id = $(this).parent().attr('id')
+                        delete selstate[id]
+                        $('.imagesuper #' + id).remove()
+                    })
+                }
+
+                listenUpload('#selector', function(imgbase64, fobj){
+                    let idata = {
+                        'img':imgbase64,
+                        'id': fobj.name
+                    };
+                    editselect(idata);
+                })
+
+            </script>
+            <style>
+                .editarea{
+                    padding: 20px 10px;
+                    border-radius: 10px;
+                }
+                .editarea .blockname{
+                    padding: 20px 0;
+                }
+                .editarea .imagesuper{
+                    display: flex;
+                    flex-wrap: wrap;
+                    /* overflow-x: scroll; */
+                }
+
+                .imagesuper .imagehold{
+                    height: 150px;
+                    padding: 10px;
+                    background-color: rgb(219, 219, 219);
+                    position: relative;
+                    border-radius: 10px;
+                    margin: 10px 10px 10px 0px;
+                }
+                .float-control{
+                    position: absolute;
+                    height: 30px;
+                    width: 30px;
+                    right: 15px;
+                    top: 15px;
+                    border-radius: 50%;
+                    background-color: rgba(255, 255, 255, 0.397);
+                    transition: all 0.3s;
+                }
+                .float-control:hover{
+                    background-color: rgba(228, 15, 15, 0.829);
+                }
+                .float-control.image-item:hover{
+                    background-color:rgb(75, 25, 5);
+                }
+                .float-control svg{
+                    height: 50%;
+                    margin: 0px auto;
+                }
+                .imagesuper .imagehold img{
+                    height: 100%;
+                    margin: 0px auto;
+                }
+                .imageholdadd{
+                    position: relative;
+                    min-width: 90px;
+                    height: 90px;
+                    margin: 10px 0px;
+                    padding: 10px;
+                    border-radius: 10px;
+                    background-color: rgb(202, 202, 202);
+                    transition: 0.3s all;
+                }
+                .imageholdadd:hover{
+                    background-color: rgb(112, 112, 112);
+                }
+                .imageholdadd .addicon{
+                    height: 20px;
+                    text-align: center;
+                }
+                .imageholdadd .addicon svg{
+                    height: 100%;
+                    fill: rgb(156, 156, 156);
+                }
+                .imageholdadd input{
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    position: absolute;
+                    top: 0;
+                }
+            </style>
+        </div>
+
+
+        <div id="geninterpol" class="interpolate c-vert">Generate Fold Interpolate</div>
+
+        <div class="sepline"></div>
+        <div class="displayarea" id="toparear" >
+            <div class="interpolhold" id="interpolholdid">
+                <div class="head">Interpolated Image</div>
+                <img style="opacity:0" src="{% static 'templatedata/homeasset/assets/images/blog-item-01.png' %}" alt="">
+                <div id="dl-interpol" class="interpolate c-vert">Download front Image</div>
+            </div>
+            <div>
+                <div id="maskhold" class="interpolhold">
+                    <div class="head">Motion mask</div>
+                    <img style="opacity:0; width: 100%; object-fit: contain;" src="{% static 'templatedata/homeasset/assets/images/blog-item-01.png' %}" alt="">
+                    <div id="d_mask" class="interpolate c-vert">Download back Image</div>
+                </div>
+                <div class="interpolhold">
+                    <div class="head">Interpolated Image Set</div>
+                    <div id="d_pdf" class="interpolate c-vert">Download all</div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        $(document).ready(function(){
+            let imcount = [];
+            function download(source){
+                const fileName = source.split('/').pop();
+                var el = document.createElement("a");
+                el.setAttribute("href", source);
+                // el.setAttribute("href", 'https://facebook.com');
+                el.setAttribute("download", fileName);
+                document.body.appendChild(el);
+                el.click();
+                el.remove();
+            }
+
+            function download_pdf(id){
+                const el = document.getElementById(id);
+                html2pdf().from(el).save()
+            }
+
+            // $('.imagesuper .imageholdadd').click(function(){
+            //     let btop = $('#blog').offset().top
+            //     console.log(btop)
+            //     setTimeout(() => {
+            //         $(document).scrollTop(btop)
+            //     }, 100);
+            // })
+
+            $("#geninterpol").click(function(){
+                console.log("sellsta", selstate)
+                // return
+                ttout = true
+                simtext("#geninterpol", 'Generate Interpolate', 'Interpolating.')
+
+
+
+                axios({
+                    method: 'POST',
+                    url: '../api/sysapi/folds_interpolate',
+                    headers: {
+                        "X-CSRFToken" : $("input[name='csrfmiddlewaretoken']").val(),
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                    },
+                    data:{
+                        payload:JSON.stringify(selstate)
+                    }
+                }).then(response => {
+                    data = response.data
+                    ttout = false
+                    clearTimeout(ttout);
+                    if (data.state){
+                        link = 'static/interpolimages/'+data['frontname'];
+                        masklink = 'static/interpolimages/'+data['backname'];
+                        elimg = '<img src="'+link+'">'
+                        elmask = '<img src="'+masklink+'">'
+                        imcount = [link, masklink]
+                        $("#interpolholdid .head + img").remove();
+                        $("#maskhold .head + img").remove();
+
+                        $("#interpolholdid .head").after(elimg)
+                        $("#maskhold .head").after(elmask)
+
+                        // Removing the existing click function from the download buttons
+                        $(".interpolhold #dl-interpol").unbind('click');
+                        $("#maskhold #d_mask").unbind('click');
+
+
+                        $(".interpolhold #dl-interpol").click(function(){
+                            download(link)
+                        })
+                        $("#maskhold #d_mask").click(function(){
+                            download(masklink)
+                        })
+                    }else{
+                        alert(data['error'])
+
+                    }
+                }).catch(error => console.error(error))
+            })
+
+            $('#d_pdf').click(function(){
+                for (let i = 0; i < imcount.length; i++) {
+                    const im = imcount[i];
+                    download(im)
+                }
+                // download_pdf('fullimagesdata')
+            })
+
+        })
+
+    </script>
+
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+        .sepline{
+            height:1px;
+            width: 60%;
+            margin: 60px auto;
+            background-color: rgb(180, 179, 179);
+            border-radius: 50%;
+        }
+        .displayarea{
+            margin: 30px auto;
+            max-width: 700px;
+
+        }
+        .displayarea .interpolhold{
+            width: 100%;
+            background-color: whitesmoke;
+            border-radius: 10px;
+            margin: 10px 0px;
+            padding: 20px;
+        }
+        .interpolhold .head{
+            padding: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .interpolhold img{
+            width: 100%;
+        }
+        .interpolhold .interpolate{
+            margin-top: 35px ;
+        }
+
+        @media (min-width: 750px) {
+            .displayarea{
+                margin: 30px auto;
+                max-width: unset;
+                display: flex;
+            }
+            .displayarea > :nth-child(1){
+                width: 70%;
+                margin: 0px 10px;
+            }
+            .displayarea > div:nth-child(2){
+                width: 30%;
+            }
+            .displayarea > div:nth-child(2) .interpolhold{
+                height: max-content;
+                margin: 0px 10px;
+            }
+            .displayarea > div:nth-child(2) .interpolhold:nth-child(1){
+                margin-bottom: 10px;
+            }
+            .displayarea > :nth-child(2) .interpolate{
+                width: 90%;
+            }
+        }
+
+
+    </style>
+
+    <style>
+        #twinview{
+            padding: 10px;
+            width: 95%;
+            margin: 0px auto;
+        }
+        #twinview > .head{
+            padding: 10px;
+            font-size: 24px;
+        }
+        .editarea{
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgb(231, 231, 231)
+        }
+        .editarea .blockname{
+            padding: 20px 0;
+        }
+        .editarea .imagesuper{
+            display: flex;
+            flex-wrap: wrap;
+            /* overflow-x: scroll; */
+        }
+
+        .imagesuper .imagehold{
+            height: 150px;
+            padding: 10px;
+            background-color: rgb(219, 219, 219);
+            position: relative;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .float-control{
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            right: 15px;
+            top: 15px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.397);
+            transition: all 0.3s;
+        }
+        .float-control:hover{
+            background-color: rgba(228, 15, 15, 0.829);
+        }
+        .float-control.image-item:hover{
+            background-color:rgb(75, 25, 5);
+        }
+        .float-control svg{
+            height: 50%;
+            margin: 0px auto;
+        }
+        .imagesuper .imagehold img{
+            height: 100%;
+            margin: 0px auto;
+        }
+        .imageholdadd{
+            position: relative;
+            min-width: 150px;
+            height: 150px;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgb(202, 202, 202);
+            transition: 0.3s all;
+        }
+        .imageholdadd:hover{
+            background-color: rgb(112, 112, 112);
+        }
+        .imageholdadd .addicon{
+            height: 30px;
+            text-align: center;
+        }
+        .imageholdadd .addicon svg{
+            height: 100%;
+            fill: rgb(156, 156, 156);
+        }
+        .imageholdadd input{
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+        }
+
+        .interpolate{
+            padding: 10px;
+            width: 40%;
+            min-width: 40px;
+            text-align: center;
+            background-color: rgb(100, 21, 21);
+            margin: 10px 0;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all;
+        }
+        .interpolate:hover{
+            background-color: rgb(66, 15, 15);
+        }
+    </style>
+{% endblock %}

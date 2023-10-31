@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
+
+
+    <title>NaskMotion</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="static/templatedata/homeasset/assets/images/rocketback.png"/>
+
+
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'templatedata/homeasset/assets/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'templatedata/homeasset/assets/css/font-awesome.css' %}">
+
+    <link rel="stylesheet" href="{% static 'templatedata/homeasset/assets/css/templatemo-softy-pinko.css' %}">
+    
+    <!-- jQuery -->
+    <script src="{% static 'templatedata/homeasset/assets/js/jquery-2.1.0.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script> -->
+</head>
+    
+<body>
+    <!-- ***** Header Area Start ***** -->
+    {% csrf_token %}
+    <header class="header-area header-sticky">
+        <script>
+            $(document).scroll(function(e){
+                let st = $(this).scrollTop()
+                if (st > 130){
+                    $('.header-area.header-sticky').css({'background-color':'#ffffff91'})
+                }else{
+                    $('.header-area.header-sticky').css({'background-color':'unset'})
+                }
+            })
+        </script>
+        <div class="container" style="width: 100%; max-width:95%; height: 100%;">
+            <div class="row" style="height: 100%;">
+                <div class="col-12" style="height: 100%;">
+                    <nav class="main-nav" style="height: 100%;">
+                        <div class="logo c-vert">NaskMotion</div>
+                        <div class="navig">
+                            <a style="display:flex; color:black" class="joinus c-vert" href="./">Home</a>
+                            <div class="joinus c-vert">Join Us</div>
+                            <div class="Create c-vert">Create</div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+    <div style="height:100px"></div>
+
+    {% block content%}
+        Drop Content
+    {%endblock%}
+    
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Blog Start ***** -->
+    <section class="section" id="blog">
+        <div class="container">
+            <!-- ***** Section Title Start ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 style="font-weight:bold" class="section-title">Explore the space images data</h2>
+                    </div>
+                </div>
+                <div class="searchtab">
+                    <input id="searchcont" type="text" class="search" placeholder="Enter key to search">
+                    <div id="searchinit" class="startsearch c-vert" v-on:click="initsearch()">Search</div>
+                </div>
+            </div>
+            <!-- ***** Section Title End ***** -->
+
+            <div class="row" >
+                
+                <div class="col-lg-4 col-md-6 col-sm-12" v-for="entry in data">
+                    <div class="blog-post-thumb"  v-on:click="toggleselect(entry)" :id="entry['data'][0]['nasa_id']">
+                        <div class="img">
+                            <img :src="entry['links'][0]['href']" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h3>
+                                <a href="#">[[ entry['data'][0]['title'] ]]</a>
+                            </h3>
+                            <div class="text">
+                                [[ entry['data'][0]['description'] ]]
+                            </div>
+                            <a class="main-button" v-on:click="readmore(entry['data'][0]['nasa_id'])">Read More</a>
+                        </div>
+                        
+                        <div v-if="vselstate.hasOwnProperty(entry['data'][0]['nasa_id'])"  style="background-color:rgb(19, 62, 110); opacity: 1;" class="float-control image-item c-vert">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- <div id="fullimagesdata" >
+        Image Full Information
+        <div class="datahold" v-for="entry in data">
+            <div class="imagehold">
+                <img src="{% static 'templatedata/homeasset/assets/images/blog-item-01.png' %}" alt="">
+            </div>
+            <div class="infopack">
+                <div class="i-data">
+                    <strong>Title: </strong> <span> entry['data'][0]['title'] ]]</span><br>
+                    <strong>Credit: </strong> <span>Center if d learn</span><br>
+                    <strong>Credit: </strong> <span>Ojo</span><br>
+                </div>
+                <div class="descrip">
+                    <strong>Description:</strong><br>
+                    <span>
+                        [ entry['data'][0]['description'] ]]
+                    </span><br>
+                </div>
+            </div>
+        </div>
+
+    </div>
+     -->
+            
+    <style>
+        .datahold{
+            display: flex;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: whitesmoke;
+            justify-content: space-between;
+        }
+        .datahold .imagehold img{
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .datahold > :nth-child(1){
+            width: 35%;
+        }
+        .datahold > :nth-child(2){
+            width: 60%;
+        }
+    </style>
+    <style>
+        .displayme{
+            opacity: 1;
+        }
+    </style>
+
+    <!-- ***** Blog End ***** -->
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <!-- On prod -->
+    <!-- <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script> -->
+
+    <script>
+
+        class Apimanager{
+            getRand(start, func){
+                // Fetches from apod
+                let url = '../api/nasaapi/getrand?start=' + start
+                console.log(start);
+                axios({
+                    method: 'GET',
+                    url: url,
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                    },
+                    // timeout: 25000,
+                }).then(response => {
+                    func(response.data);
+                }).catch(error => console.error(error))
+            }
+            
+            getSearch(search, start, func){
+                // Fetches from nasaimg
+                // cut has will be taken from start to start+10
+                axios({
+                    method: 'GET',
+                    url: '../api/nasaapi/getsearch?query='+search+'&start='+start,
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                    },
+                    // timeout: 25000,
+                }).then(response => {
+                    func(response.data.data);
+                }).catch(error => console.error(error))
+            }
+        
+            convert_apod_to_nasimg(apod){
+                return apod
+                let obj = []
+                for (let i = 0; i < apod.length; i++) {
+                    const el = array[i];
+                    obj[i] = {
+                        data:[{
+                            center:el['copyright'],
+                            date_created:el['date'],
+                            description:el['explanation'],
+                            media_type:el['media_type'],
+                            nasa_id:0,
+                            title:el['title'],
+                            secondary_creator:el['copyright'],
+
+                        }],
+                        href:ss,
+                        links:[{
+                            href:el['hdurl'],
+                            rel:'preview',
+                            render:el['media_type']
+                        }]
+                    }
+                    return obj;
+                    
+                }
+            }
+        }
+        
+        let selstate = {}
+
+        let ttout = true
+
+        function simtext(el, sing, cont){
+            obj = $(el)
+            obj.text(cont);
+            setTimeout(() => {
+                obj.text(cont+ '.');
+            }, 500);
+            setTimeout(() => {
+                obj.text(cont+ '..');
+            }, 1000);
+            setTimeout(() => {
+                obj.text(cont+ '...');
+                if (ttout){
+                    simtext(el, sing, cont)
+                }else{
+                    obj.text(sing);
+                }
+            }, 1500);
+        }
+
+        const dataloader = Vue.createApp({
+            delimiters: ["[[", "]]"],
+            mounted(){
+                this.initiate()
+            },
+            data(){
+                return {
+                    data:{},
+                    vselstate:{},
+                }
+            },
+
+            methods:{
+                initiate(){
+                    new Apimanager().getSearch('Jovian', 30, (response)=>{
+                        this.data = response;
+                        passeddata = {...this.data }
+                        console.log(passeddata);
+                        console.log(response);
+                    })
+                },
+                readmore(id){
+                    alert('Under development')
+                },
+                toggleselect(entry){
+                    id = entry['data'][0]['nasa_id']
+                    
+                    if (selstate.hasOwnProperty(id)){
+                        delete selstate[id]
+                        $('.imagesuper #' + id).remove()
+                    }else{
+                        selstate[id] = [id, entry['links'][0]['href']]
+
+                        let count = $('.imagesuper').children().length - 1;
+                        el = '<div class="imagehold" id="'+ id +'">'+
+                            '<div class="float-control c-vert"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg></div>'+
+                            '<img src="'+entry['links'][0]['href']+'" alt="">'+
+                        '</div>';
+                        if (count == 0){
+                            $('.imagesuper').prepend(el);
+                        }else{
+                            $('.imagesuper .imagehold:nth-child('+count+')').after(el);
+                        }
+                        $(".imagehold .float-control").click(function(){
+                            let id = $(this).parent().attr('id')
+                            delete selstate[id]
+                            
+                            $("#"+id + " .float-control").css({'opacity':'0'})
+                            $('.imagesuper #' + id).remove()
+                        })
+                    }
+                    this.vselstate = {...selstate}
+                },
+                initsearch(){
+                    ttout = true
+                    simtext("#searchinit", 'Search', 'Searching')
+                    it = $('#searchcont').val();
+                    new Apimanager().getSearch(it, 30, (response)=>{
+                        this.data = response;
+                        if (response.length == 0){
+                            alert('Search not found')
+                        }
+                        ttout = false
+                        clearTimeout(ttout);                        
+                       
+                    })
+                }
+                
+            }
+        
+        })
+        dataloader.mount('#blog');
+
+    </script>
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <ul class="social">
+                        <li><a href="https://github.com/Ojo-Oluwagbenga/NaskMotion/tree/master"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright">Copyright &copy; 2022 NaskMotion</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- Bootstrap -->
+    <script src="{% static 'templatedata/homeasset/assets/js/popper.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/bootstrap.min.js' %}"></script>
+
+    <!-- Plugins -->
+    <script src="{% static 'templatedata/homeasset/assets/js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'templatedata/homeasset/assets/js/imgfix.min.js' %}"></script> 
+    
+    <!-- Global Init -->
+    <script src="{% static 'templatedata/homeasset/assets/js/custom.js' %}"></script>
+
+  </body>
+</html>
